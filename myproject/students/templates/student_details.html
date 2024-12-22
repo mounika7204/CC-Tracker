@@ -1,0 +1,11 @@
+<h1>Student Profile</h1>
+<p>Roll Number: {{ user_profile.roll_no }}</p>
+<p>Email: {{ user_profile.email }}</p>
+<p>Codeforces Handle: 
+    {% if user_profile.codeforces %}
+        <a href="{{ user_profile.codeforces }}" target="_blank">{{ user_profile.get_codeforces_handle }}</a>
+    {% else %}
+        Not Provided
+    {% endif %}
+</p>
+<p>Problems Solved on Codeforces: {{ problems_solved|default:"N/A" }}</p>

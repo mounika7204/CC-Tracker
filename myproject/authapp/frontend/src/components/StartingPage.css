@@ -1,0 +1,108 @@
+/* StartingPage.css */
+
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Black background */
+    color: white; /* White text color */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Main container */
+  .starting-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Welcome message with typing effect */
+  .welcome-message {
+    font-size: 3rem; /* Increased font size */
+    font-weight: bold;
+    margin-bottom: 30px;
+    overflow: hidden; /* Hide the text overflow */
+    white-space: nowrap;
+    border-right: 0.15em solid #fff;
+    width: 0;
+    animation: typing 4s steps(40) forwards, blink 0.75s step-end infinite;
+  }
+  
+  /* Animation for typing effect */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 30ch; /* Adjust width based on the length of the text */
+    }
+  }
+  
+  /* Blinking cursor effect */
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  /* Start button styles */
+  .start-button {
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    padding: 20px 50px; /* Bigger padding */
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    margin-top: 20px;
+  }
+  
+  .start-button:hover {
+    transform: scale(1.1); /* Slightly enlarge the button */
+    background-color: rgba(0, 123, 255, 0.8); /* Add slight transparency */
+  }
+  
+  .start-button:focus {
+    outline: none;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .welcome-message {
+      font-size: 2.5rem; /* Smaller font on tablet */
+    }
+  
+    .start-button {
+      font-size: 1.2rem;
+      padding: 15px 40px; /* Adjust padding on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .welcome-message {
+      font-size: 2rem; /* Even smaller font on mobile */
+    }
+  
+    .start-button {
+      font-size: 1rem;
+      padding: 12px 30px;
+    }
+  }
+  
