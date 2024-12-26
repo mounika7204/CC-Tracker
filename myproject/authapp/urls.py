@@ -23,7 +23,8 @@ from .views import LoginView,SignupView
 
 urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
-   path('login/', LoginView.as_view(), name='login'),
-   path('student/<str:roll_no>/', views.student_detail, name='student_detail')
+    path('login/', LoginView.as_view(), name='login'),
+   # urls.py
+    path('<str:name>/', views.fetch_student_data, name='fetch_student_data'),
 ]
 

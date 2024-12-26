@@ -1,7 +1,7 @@
-# students/urls.py
 from django.urls import path
-from .views import StudentDetailAPIView
+from authapp.views import fetch_student_data
+
 
 urlpatterns = [
-    path('student/<str:roll_no>/', StudentDetailAPIView.as_view(), name='student_detail_api'),
+    path('search/<str:name>/', fetch_student_data, name='search-student'),
 ]

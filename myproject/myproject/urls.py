@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls')),  # Include your authapp URLs
     path('', home_view, name='home'),  # Define root path for home page
-    path('students/', include('students.urls')),  # Include student URLs
+    path('students/', include('students.urls')),
 ]

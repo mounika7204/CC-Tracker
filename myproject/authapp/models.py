@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    roll_no = models.CharField(max_length=20)
-    email = models.EmailField()
+    roll_no = models.CharField(max_length=100, blank=False, null=False)  # Ensure it's not null
+    email = models.EmailField(blank=False, null=False)  # Ensure it's not null
     codechef = models.URLField(blank=True, null=True)
     codeforces = models.URLField(blank=True, null=True)
     leetcode = models.URLField(blank=True, null=True)
