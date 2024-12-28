@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For redirection
-import "./signup.css";
+import "./signupadmin.css";
 
 const SignupPage = () => {
   // State for form data
   const [username, setUsername] = useState("");
-  const [rollno, setRollno] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [codechef, setCodechef] = useState("");
-  const [codeforces, setCodeforces] = useState("");
-  const [leetcode, setLeetcode] = useState("");
-  const [gfg, setgfg] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,13 +31,7 @@ const SignupPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username,
-          email,
           password,
-          rollno,
-          codechef,
-          codeforces,
-          leetcode,
-          gfg,
         }),
       });
 
@@ -83,29 +71,6 @@ const SignupPage = () => {
             />
           </div>
 
-          {/* Email */}
-          <div className="input-container">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Email"
-              className="signup-input"
-              required
-            />
-          </div>
-
-          {/* Roll Number */}
-          <div className="input-container">
-            <input
-              type="text"
-              value={rollno}
-              onChange={(e) => setRollno(e.target.value)}
-              placeholder="Enter Roll Number"
-              className="signup-input"
-            />
-          </div>
-
           {/* Password */}
           <div className="input-container">
             <input
@@ -127,44 +92,6 @@ const SignupPage = () => {
               placeholder="Confirm Password"
               className="signup-input"
               required
-            />
-          </div>
-
-          {/* Competitive Programming Profiles */}
-          <div className="input-container">
-            <input
-              type="url"
-              value={codechef}
-              onChange={(e) => setCodechef(e.target.value)}
-              placeholder="Enter CodeChef Profile URL"
-              className="signup-input"
-            />
-          </div>
-          <div className="input-container">
-            <input
-              type="url"
-              value={codeforces}
-              onChange={(e) => setCodeforces(e.target.value)}
-              placeholder="Enter Codeforces Profile URL"
-              className="signup-input"
-            />
-          </div>
-          <div className="input-container">
-            <input
-              type="url"
-              value={leetcode}
-              onChange={(e) => setLeetcode(e.target.value)}
-              placeholder="Enter LeetCode Profile URL"
-              className="signup-input"
-            />
-          </div>
-          <div className="input-container">
-            <input
-              type="url"
-              value={gfg}
-              onChange={(e) => setgfg(e.target.value)}
-              placeholder="Enter gfg Profile URL"
-              className="signup-input"
             />
           </div>
 

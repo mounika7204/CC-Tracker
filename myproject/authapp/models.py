@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     codechef = models.URLField(blank=True, null=True)
     codeforces = models.URLField(blank=True, null=True)
     leetcode = models.URLField(blank=True, null=True)
-    hackerrank = models.URLField(blank=True, null=True)
+    geeksforgeeks = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username

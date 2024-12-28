@@ -9,11 +9,11 @@ class SignupForm(UserCreationForm):
     codechef = forms.URLField(required=False)
     codeforces = forms.URLField(required=False)
     leetcode = forms.URLField(required=False)
-    hackerrank = forms.URLField(required=False)
+    geeksforgeeks = forms.URLField(required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'email', 'roll_no', 'codechef', 'codeforces', 'leetcode', 'hackerrank']
+        fields = ['username', 'password1', 'password2', 'email', 'roll_no', 'codechef', 'codeforces', 'leetcode', 'geeksforgeeks']
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -27,7 +27,7 @@ class SignupForm(UserCreationForm):
                 codechef=self.cleaned_data.get('codechef'),
                 codeforces=self.cleaned_data.get('codeforces'),
                 leetcode=self.cleaned_data.get('leetcode'),
-                hackerrank=self.cleaned_data.get('hackerrank'),
+                geeksforgeeks=self.cleaned_data.get('geeksforgeeks'),
             )
         return user
 

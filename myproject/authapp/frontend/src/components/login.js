@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"; // For redirection
 import axios from "axios";
 import "./login.css";
 
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -87,7 +88,7 @@ const LoginPage = () => {
           {/* Signup Link */}
           <div className="signup-option">
             <p>
-              Don't have an account? <Link to="/signup">Sign Up</Link>
+              Don't have an account? <Link to="/choice">Sign Up</Link>
             </p>
           </div>
         </form>

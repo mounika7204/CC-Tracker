@@ -1,0 +1,159 @@
+/* General Styling for Signup Page */
+.signup-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .signup-content {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .signup-heading {
+    color: #007bff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Container for the input fields */
+  .input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px; /* Space between input fields */
+  }
+  
+  /* Styling for input fields */
+  .signup-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    outline: none;
+    padding-left: 35px;
+    position: relative;
+  }
+  
+  /* Focus Styling (only on the bottom border) */
+  .signup-input:focus {
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Hover effect for bottom border */
+  .signup-input:hover {
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Submit Button Container */
+  .submit-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Login Option */
+  .login-option {
+    margin-top: 20px;
+    font-size: 1em;
+  }
+  
+  .login-option a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-option a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styling for Password and Confirm Password Fields */
+  .password-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    outline: none;
+    padding-left: 35px;
+    position: relative;
+  }
+  
+  /* Password Input Field Hover and Focus Effects */
+  .password-input:hover {
+    border-bottom: 2px solid #007bff;
+  }
+  
+  .password-input:focus {
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Custom Styling for Password Fields */
+  .password-label {
+    margin-bottom: 5px;
+    font-size: 1em;
+    font-weight: 500;
+  }
+  
+  .password-strength {
+    font-size: 0.85em;
+    color: #007bff;
+    margin-top: 5px;
+  }
+  
+  /* Styling for Form */
+  .form-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Submit Button Container */
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Error/Success Messages */
+  .signup-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 1em;
+  }
+  
+  /* Loading State for Button */
+  .submit-button[disabled] {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SiLeetcode, SiCodeforces, SiCodechef, SiHackerrank } from 'react-icons/si';
+import { SiGeeksforgeeks } from "react-icons/si";
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -10,7 +11,7 @@ const Dashboard = () => {
 
   const handleSearch = () => {
     if (!searchTerm.trim()) {
-      setError('Please enter a name');
+      setError('Please enter your roll no');
       return;
     }
 
@@ -88,6 +89,7 @@ const Dashboard = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="coding-icon"
+                  title={`https://codeforces.com/profile/${userData.platform_data.codeforces.handle || 'Not Available'}`}
                 >
                   <SiCodeforces />
                 </a>
@@ -123,7 +125,7 @@ const Dashboard = () => {
                 {userData.platform_data.leetcode ? (
                   <div className="coding-profile">
                     <a
-                      href={`https://leetcode.com/${userData.platform_data.leetcode.handle}`}
+                      href={`https://leetcode.com/u/${userData.platform_data.leetcode.handle}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="coding-icon"
@@ -140,23 +142,24 @@ const Dashboard = () => {
 
 
 
-            {/* HackerRank Profile */}
-            {userData.platform_data.hackerrank ? (
-              <div className="coding-profile">
-                <a
-                  href={`https://www.hackerrank.com/${userData.platform_data.hackerrank.handle}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="coding-icon"
-                >
-                  <SiHackerrank />
-                </a>
-                <h4>HackerRank</h4>
-                <p>Rating: {userData.platform_data.hackerrank.rating || 'N/A'}</p>
-              </div>
-            ) : (
-              <p>No HackerRank data available.</p>
-            )}
+              {/* GeeksforGeeks Profile */}
+              {userData.platform_data.geeksforgeeks ? (
+                <div className="coding-profile">
+                  <a
+                    href={`https://www.geeksforgeeks.org/user/${userData.platform_data.geeksforgeeks.handle}/practice/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="coding-icon"
+                  >
+                   <SiGeeksforgeeks />
+                  </a>
+                  <h4>GeeksforGeeks</h4>
+                  <p>Problems Solved: {userData.platform_data.geeksforgeeks.total_problems_solved || 'N/A'}</p>
+                </div>
+              ) : (
+                <p>No GeeksforGeeks data available.</p>
+              )}
+
           </div>
         </div>
       )}

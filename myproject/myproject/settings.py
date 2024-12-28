@@ -66,7 +66,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'myproject.urls'
 
-# settings.py
+
 # settings.py
 TEMPLATES = [
     {

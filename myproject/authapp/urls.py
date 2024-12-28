@@ -26,5 +26,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
    # urls.py
     path('<str:name>/', views.fetch_student_data, name='fetch_student_data'),
+
 ]
 

@@ -33,30 +33,56 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
+from django.contrib.auth.hashers import make_password
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.models import User
+from .models import UserProfile  # Make sure this import is correct
+
 class SignupView(APIView):
     def post(self, request):
+        # Extract data from the request
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
+        roll_no = request.data.get('rollno')  # Get roll number from the request
+        codechef = request.data.get('codechef')
+        codeforces = request.data.get('codeforces')
+        leetcode = request.data.get('leetcode')
+        gfg = request.data.get('gfg')
 
-        if not username or not password or not email:
+        # Validate required fields
+        if not username or not password or not email or not roll_no:
             return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Check if username or email already exists
         if User.objects.filter(username=username).exists():
             return Response({"error": "Username already exists."}, status=status.HTTP_400_BAD_REQUEST)
 
         if User.objects.filter(email=email).exists():
             return Response({"error": "Email already exists."}, status=status.HTTP_400_BAD_REQUEST)
 
-        from django.contrib.auth.hashers import make_password
-
+        # Create user
         user = User.objects.create(
             username=username,
             email=email,
             password=make_password(password)  # Ensure password is hashed
         )
 
+        # Create UserProfile for the newly created user
+        UserProfile.objects.create(
+            user=user,
+            roll_no=roll_no,
+            codechef=codechef,
+            codeforces=codeforces,
+            leetcode=leetcode,
+            geeksforgeeks=gfg
+        )
+
+        # Return success response
         return Response({"message": "User created successfully."}, status=status.HTTP_201_CREATED)
+
 
 
 # Login API
@@ -116,6 +142,7 @@ def fetch_codeforces_data(handle):
     user_info = data['result'][0]
     rating = user_info.get('rating', 'Not Found')
     max_rank = user_info.get('maxRank', 'Not Found')
+    fetched_handle = user_info.get('handle', handle)
 
     # Fetch submission data to count problems solved
     submission_url = f"https://codeforces.com/api/user.status?handle={handle}"
@@ -140,6 +167,7 @@ def fetch_codeforces_data(handle):
     print("Number of Problems Solved:", problems_solved, flush=True)
 
     return {
+         "handle": fetched_handle,
         "rating": rating,
         "problems_solved": problems_solved
     }
@@ -184,7 +212,10 @@ def fetch_codechef_data(handle):
     if problems_solved_section:
         total_problems_solved = problems_solved_section.text.strip().split(":")[1].strip()
 
+    fetched_handle =  handle
+
     return {
+        "handle": fetched_handle,
         "rating": rating,
         "stars": stars,
         "problems_solved": total_problems_solved
@@ -241,6 +272,7 @@ def fetch_leetcode_data(username):
             problems_solved = user_data['submitStatsGlobal']['acSubmissionNum'][0]['count']
             rating = user_data['profile']['ranking']
             return {
+                "handle": username,
                 "rating": rating,
                 "problems_solved": problems_solved
             }
@@ -256,43 +288,52 @@ from bs4 import BeautifulSoup
 
 import requests
 from bs4 import BeautifulSoup
+from django.http import JsonResponse
+from django.shortcuts import render
+
+# Utility function to scrape user stats from GeeksforGeeks
+import requests
+from bs4 import BeautifulSoup
+from django.http import JsonResponse
 
 import requests
 from bs4 import BeautifulSoup
+from django.http import JsonResponse
 
-def fetch_hackerrank_data(username):
-    url = f"https://www.hackerrank.com/{username}/submissions/all"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
+def fetch_gfg_data(username):
+    url = f"https://auth.geeksforgeeks.org/user/{username}/practice/"
+    response = requests.get(url)
+    
+    if response.status_code != 200:
+        return {"error": "Unable to fetch data or user does not exist"}
+    
+    soup = BeautifulSoup(response.text, 'html.parser')
+    data = soup.find_all('div', class_='scoreCard_head_left--score__oSi_x')  # Get all divs with the class
+    
+    if len(data) < 2:
+        return {"handle": username,"total_problems_solved": 0}  # If fewer than 2 divs exist, return 0
+    
+    total_problems_solved = int(data[1].text.strip())  # Select the second div (index 1) and extract the text
+    return {"handle": username, "total_problems_solved": total_problems_solved}
 
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        # Find the table containing the submissions
-        table = soup.find('table', class_ ='submissions')  # Replace 'your-table-class' with actual class
-        if table:
-            # Find all the tr tags inside the table (these represent the solved problems)
-            rows = table.find_all('tr')
-            
-            # Exclude the first row if it's the header
-            solved_problems_count = len(rows) - 1  # Subtract 1 to exclude the header row
-            return {"solved_problems_count": solved_problems_count}
-        else:
-            return {"error": "Submissions table not found"}
-    else:
-        return {"error": f"Failed to fetch submissions, HTTP {response.status_code}"}
+def gfg_stats_view(request):
+    username = request.GET.get('userName')
+    
+    if not username:
+        return JsonResponse({"error": "Please provide a GeeksforGeeks username"})
+    
+    stats = fetch_gfg_data(username)
+    
+    return JsonResponse(stats)
 
 
 # View to fetch student data
 def fetch_student_data(request, name):
     try:
-        print(f"Searching for: {name}")
-        
-        # Fetch the user profile based on the username
-        user_profile = UserProfile.objects.filter(user__username__iexact=name).first()
+        print(f"Searching for roll number: {name}")
+    
+        # Fetch the user profile based on roll number instead of username
+        user_profile = UserProfile.objects.filter(roll_no__iexact=name).first()
         print("userprofile: ", user_profile)
 
         if not user_profile:
@@ -334,18 +375,19 @@ def fetch_student_data(request, name):
             platform_data['leetcode'] = {'error': 'LeetCode handle is missing.'}
 
         # HackerRank Data
-        if user_profile.hackerrank:
+        if user_profile.geeksforgeeks:
             try:
-                hackerrank_handle = user_profile.hackerrank.split('/')[-1]
-                print("handle: ",hackerrank_handle)
-                hackerrank_data = fetch_hackerrank_data(hackerrank_handle)
-                print("hackerrank data: ",hackerrank_data)
-                platform_data['hackerrank'] = hackerrank_data
+                gfg_handle = user_profile.geeksforgeeks.rstrip('/').split('/')[-1]
+                print("GFG handle: ", gfg_handle)
+                gfg_data = fetch_gfg_data(gfg_handle)
+                print("GFG data: ", gfg_data)
+                platform_data['geeksforgeeks'] = gfg_data
             except Exception as e:
-                platform_data['hackerrank'] = {
-                    'handle': user_profile.hackerrank,
-                    'error': f'HackerRank data fetch failed: {str(e)}'
+                platform_data['geeksforgeeks'] = {
+                    'handle': user_profile.geeksforgeeks,
+                    'error': f'GeeksforGeeks data fetch failed: {str(e)}'
                 }
+
 
         # Return the response with the user's data
         return JsonResponse({
@@ -356,6 +398,7 @@ def fetch_student_data(request, name):
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 # def fetch_student_data(request, name):

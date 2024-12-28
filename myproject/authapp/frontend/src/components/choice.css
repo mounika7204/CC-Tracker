@@ -1,0 +1,50 @@
+/* Center the content vertically and horizontally */
+.signup-choice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Full viewport height */
+    gap: 50px; /* Add some gap between the boxes */
+}
+
+.signup-choice-box {
+    width: 250px;
+    height: 220px;
+    background-color:  #00a2ff; /* Blue background for both Admin and Student */
+    color: white;
+    border-radius: 8px; /* Less rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Specific style for the second box (Student) */
+.signup-choice-box:nth-child(2) {
+    background-color:  #00a2ff; /* Orange background for Student */
+}
+
+.signup-choice-box:hover {
+    transform: scale(1.1); /* Enlarge the box on hover */
+}
+
+.signup-box-content h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-top: 40px;
+}
+
+
+/* Optional: Styling for the links */
+.signup-choice-box a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    width: 100%;
+}

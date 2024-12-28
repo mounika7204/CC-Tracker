@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('codechef', models.URLField(blank=True, null=True)),
                 ('codeforces', models.URLField(blank=True, null=True)),
                 ('leetcode', models.URLField(blank=True, null=True)),
-                ('hackerrank', models.URLField(blank=True, null=True)),
+                ('geeksforgeeks', models.URLField(blank=True, null=True)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
